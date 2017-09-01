@@ -7,7 +7,7 @@ end
 
 gemfile(true) do
   source "https://rubygems.org"
-  gem "rails",'~> 5.0.2', github: "rails/rails"
+  gem "rails", github: "rails/rails"
   gem "arel", github: "rails/arel"
   gem "sqlite3"
 end
@@ -49,7 +49,7 @@ class BugTest < Minitest::Test
     assert_equal 1, Comment.count
     assert_equal post.id, Comment.first.post.id
 
-    assert_nothing_raised ActiveRecord::RecordNotFound, "Couldn't find Comment with ID= #{comment.id} for post with ID=#{post.id}" do
+    assert_raises ActiveRecord::RecordNotFound, "Couldn't find Comment with ID= #{comment.id} for post with ID=#{post.id}" do
       post.update(comments_attributes: { id: " #{comment.id}" })
     end
   end
